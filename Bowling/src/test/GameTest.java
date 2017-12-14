@@ -30,6 +30,10 @@ class GameTest {
         g.roll(5); // Spare
     }
 
+    private void rollStike() {
+        g.roll(10);
+    }
+
     @Test
     void gutterGame() {
         rollMany(20, 0);
@@ -41,7 +45,6 @@ class GameTest {
         rollMany(20, 1);
         assertEquals(20, g.score());
     }
-
     @Test
     void oneSpare() {
         rollSpare();
@@ -49,12 +52,19 @@ class GameTest {
         rollMany(17, 0);
         assertEquals(10+3+3, g.score());
     }
+
     @Test
     void oneStrike() {
-        g.roll(10); // Strike  https://en.wikipedia.org/wiki/Strike_(bowling)
+        rollStike(); // Strike  https://en.wikipedia.org/wiki/Strike_(bowling)
         g.roll(3);
         g.roll(4);
         rollMany(16, 0);
         assertEquals((10+3+4) + (3 + 4), g.score());
+    }
+
+    @Test
+    void perfectGame() {
+        rollMany(12, 10);
+        assertEquals(300, g.score());
     }
 }
